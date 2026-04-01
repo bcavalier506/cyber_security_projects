@@ -21,4 +21,4 @@ Secure Architectural Design: Understanding how to separate "Crown Jewel" assets 
 Resource Mapping: Organizing IP schemes and hardware placement for a scalable business environment.
 
 Business Continuity: Designing for high availability through ISP and router redundancy.
-![Network Diagram](./Brandon Cavalier_Sprint1_.pdf)
+
