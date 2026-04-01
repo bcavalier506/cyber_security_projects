@@ -22,4 +22,4 @@ Resource Mapping: Organizing IP schemes and hardware placement for a scalable bu
 
 Business Continuity: Designing for high availability through ISP and router redundancy.
 
-sprint-1/Brandon Cavalier_Sprint1_.pdf
+
