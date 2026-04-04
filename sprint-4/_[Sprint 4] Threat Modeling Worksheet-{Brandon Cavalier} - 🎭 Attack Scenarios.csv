@@ -1,7 +1,0 @@
-Title of your attack scenario.,Complete the 🚪 Attack Vectors sheet first to pre-populate this column's dropdown!,Describe in detail a scenario chaining these TTPs together to result in TA accessing 👑 Key Asset.
-4.2.5,4.2.4,4.2.5
-🎭 Attack Scenario,🚪 Attack Vectors,Details
-Exploited public facing applications,"T1190: Exploit Public-Facing Application, T1078: Valid Accounts, T1005: Data from Local System",An attacker exploits a vulnerability on a public-facing web server.The attacker uses stolen credentials to access the vendor's development environment.They locate and exfiltrate sensitive data.
-Insider threat,"T1078: Valid Accounts, T1005: Data from Local System",A company employee uses credentials to download company IP and sell it to competitors.
-Malware financial attack,"T1649: Steal or Forge Authentication Certificates, T1505: Server Software Component, T1005: Data from Local System",TA uses source code gathered from .git folder to inject malware. Malware steals credit card information.
-Network sniffing for IP,"T1040: Network Sniffing, T1078: Valid Accounts, T1005: Data from Local System","The attacker gains access to a network segment and begins passively capturing network traffic. The attacker identifies a user's credentials from the sniff network traffic. Using the compromised credentials, and accesses sensitive IP data."
